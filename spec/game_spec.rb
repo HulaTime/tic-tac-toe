@@ -2,10 +2,10 @@ require 'game'
 
 describe Game do
 
-  subject(:game) { described_class.new(player1, player2, cell_obj) }
+  subject(:game) { described_class.new('Max', 'Miles', cell_obj) }
 
-  let(:player1) { double :player, name: 'Max', change_turn: nil }
-  let(:player2){ double :player, name: 'Miles', change_turn: nil }
+  # let(:player1) { double :player, name: 'Max', change_turn: nil }
+  # let(:player2){ double :player, name: 'Miles', change_turn: nil }
   let(:cell_obj) { double :cell }
 
   describe '#initialize' do
@@ -22,16 +22,14 @@ describe Game do
     end
 
     it 'Receives players 1 and 2 as a parameter' do
-      expect(game.player1.name).to eq 'Max'
-      expect(game.player2.name).to eq 'Miles'
+      expect(game.player1).to eq 'Max'
+      expect(game.player2).to eq 'Miles'
     end
-  end
 
-  it 'Selects first player turn randomly' do
-    allow(Kernel).to receive(:rand) { 0 }
-    player3 = spy('player3')
-    game2 = described_class.new(player3, player2, cell_obj)
-    expect(player3).to have_received(:change_turn)
+    it 'Selects first player turn randomly' do
+      allow(Kernel).to receive(:rand) { 1 }
+      expect(game.player_turn).to eq 1
+    end
   end
 
 
