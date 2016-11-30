@@ -11,8 +11,7 @@ class Game
     @player_turn = player2 if turn == 1
   end
 
-  def place_cross(x, y)
-    grid[x][y].mark('x', player_turn)
+  def place(type, x, y)
+    grid[x][y].mark(type , player_turn)
   end
-
 end

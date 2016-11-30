@@ -32,11 +32,21 @@ describe Game do
     end
   end
 
-  it 'Players can mark a grid cell with a cross' do
-    allow(Kernel).to receive(:rand) { 0 }
-    allow(cell_obj).to receive(:mark)
-    game.place_cross(1, 2)
-    expect(game.grid[1][2]).to have_received(:mark).with('x', 'Max')
+  context 'Moves' do
+    before do 
+      allow(Kernel).to receive(:rand) { 0 }
+      allow(cell_obj).to receive(:mark)
+    end
+
+    it 'Players can mark a grid cell with a cross' do      
+      game.place('x', 1, 2)
+      expect(game.grid[1][2]).to have_received(:mark).with('x', 'Max')
+    end
+
+    it 'Players can mark a grid cell with a nought' do
+      game.place('o', 1, 2)
+      expect(game.grid[1][2]).to have_received(:mark).with('o', 'Max')
+    end
   end
 
 end
