@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/MaxProvin/tic-tac-toe.svg?branch=master)
+![Build Status](https://travis-ci.org/MaxProvin/tic-tac-toe.svg?branch=master)
 
 # tic-tac-toe
 
