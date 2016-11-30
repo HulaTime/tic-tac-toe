@@ -2,6 +2,8 @@ require 'game'
 
 describe Game do
 
+  MARKING_ERROR = 'Error: Please mark cells with either x or o'
+
   subject(:game) { described_class.new('Max', 'Miles', cell_obj) }
 
   # let(:player1) { double :player, name: 'Max', change_turn: nil }
@@ -38,14 +40,20 @@ describe Game do
       allow(cell_obj).to receive(:mark)
     end
 
-    it 'Players can mark a grid cell with a cross' do      
+    it 'Can mark a grid cell with a cross' do      
       game.place('x', 1, 2)
       expect(game.grid[1][2]).to have_received(:mark).with('x', 'Max')
     end
 
-    it 'Players can mark a grid cell with a nought' do
+    it 'Can mark a grid cell with a nought' do
       game.place('o', 1, 2)
       expect(game.grid[1][2]).to have_received(:mark).with('o', 'Max')
+    end
+
+    it 'Can only mark a grid cell with a nought or cross' do
+      expect{ game.place('d', 1, 2) }.to raise_error MARKING_ERROR
+      expect{ game.place(6, 1, 2) }.to raise_error MARKING_ERROR
+      expect{ game.place(true, 1, 2) }.to raise_error MARKING_ERROR
     end
   end
 

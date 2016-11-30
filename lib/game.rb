@@ -1,5 +1,7 @@
 class Game
 
+  MARKING_ERROR = 'Error: Please mark cells with either x or o'
+
   attr_reader :grid, :player1, :player2, :player_turn
 
   def initialize(player1, player2, cell = Cell.new)
@@ -12,6 +14,9 @@ class Game
   end
 
   def place(type, x, y)
+    raise MARKING_ERROR unless type.is_a? String
+    raise MARKING_ERROR if type.upcase != 'X' && type.upcase != 'O'
     grid[x][y].mark(type , player_turn)
   end
+
 end
