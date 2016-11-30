@@ -6,7 +6,13 @@ class Game
     @player1 = player1
     @player2 = player2
     @grid = Array.new(3) { Array.new(3) { cell } }
-    @player_turn = Kernel.rand(1..2)
+    turn = Kernel.rand(2) 
+    @player_turn = player1 if turn == 0
+    @player_turn = player2 if turn == 1
+  end
+
+  def place_cross(x, y)
+    grid[x][y].mark('x', player_turn)
   end
 
 end

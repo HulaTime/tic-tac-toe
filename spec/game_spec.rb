@@ -27,10 +27,16 @@ describe Game do
     end
 
     it 'Selects first player turn randomly' do
-      allow(Kernel).to receive(:rand) { 1 }
-      expect(game.player_turn).to eq 1
+      allow(Kernel).to receive(:rand) { 0 }
+      expect(game.player_turn).to eq 'Max'
     end
   end
 
+  it 'Players can mark a grid cell with a cross' do
+    allow(Kernel).to receive(:rand) { 0 }
+    allow(cell_obj).to receive(:mark)
+    game.place_cross(1, 2)
+    expect(game.grid[1][2]).to have_received(:mark).with('x', 'Max')
+  end
 
 end
