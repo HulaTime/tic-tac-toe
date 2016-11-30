@@ -2,8 +2,10 @@ require 'game'
 
 describe Game do
 
-  subject(:game) { described_class.new('Max', 'Miles', cell_obj) }
+  subject(:game) { described_class.new(player1, player2, cell_obj) }
 
+  let(:player1) { double :player, name: 'Max' }
+  let(:player2){ double :player, name: 'Miles' }
   let(:cell_obj) { double :cell }
 
   describe '#initialize' do
@@ -20,8 +22,8 @@ describe Game do
     end
 
     it 'Receives players 1 and 2 as a parameter' do
-      expect(game.player1).to eq 'Max'
-      expect(game.player2).to eq 'Miles'
+      expect(game.player1.name).to eq 'Max'
+      expect(game.player2.name).to eq 'Miles'
     end
   end
 
