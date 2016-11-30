@@ -8,4 +8,8 @@ class Player
     @turn
   end
 
+  def change_turn
+    @turn == false ? @turn = true : @turn = false
+  end
+
 end
