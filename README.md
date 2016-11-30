@@ -1,4 +1,5 @@
 ![Build Status](https://travis-ci.org/MaxProvin/tic-tac-toe.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/MaxProvin/tic-tac-toe/badge.svg?branch=master)](https://coveralls.io/github/MaxProvin/tic-tac-toe?branch=master)
 
 # tic-tac-toe
 
