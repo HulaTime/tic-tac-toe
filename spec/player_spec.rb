@@ -2,7 +2,11 @@ require 'player'
 
 describe Player do
 
-  subject(:player) { described_class.new }
+  subject(:player) { described_class.new('Max') }
+
+  it 'Is initialized with a name' do
+    expect(player.name).to eq 'Max'
+  end
 
   it 'Has and knows its turn, by default this should be false' do
     expect(player.my_turn?).to be false
