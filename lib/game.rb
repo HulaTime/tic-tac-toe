@@ -9,8 +9,7 @@ class Game
     @player2 = player2
     @grid = Array.new(3) { Array.new(3) { cell } }
     turn = Kernel.rand(2) 
-    @player_turn = player1 if turn == 0
-    @player_turn = player2 if turn == 1
+    turn == 0 ? @player_turn = player1 : @player_turn = player2
   end
 
   def place(type, x, y)

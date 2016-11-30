@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/MaxProvin/tic-tac-toe.svg?branch=master)
+
 # tic-tac-toe
 
 This is a very common tech test as it demonstrates a candidate's knowledge of basic data structures.
