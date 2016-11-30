@@ -6,4 +6,8 @@ class Cell
     @status = nil
   end
 
+  def mark(arg)
+    @status = arg.upcase
+  end
+
 end
