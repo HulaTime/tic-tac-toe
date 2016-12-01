@@ -24,6 +24,14 @@ class Game
     log.length == 9 ? true : false
   end
 
+  def winner
+    grid.each do |column|
+      if column.any? { |cell| cell.status == column[0].status } == true
+        return column[0].owner
+      end
+    end
+  end
+
   private
 
   attr_reader :log
@@ -39,6 +47,23 @@ class Game
   def check_log_and_add_move(coordinate_array)
     raise ERROR if log.include?(coordinate_array)
     log.push(coordinate_array)
+  end
+
+  def vertical_winner
+    grid.each do |column|
+      if column.any? { |cell| cell.status == column[0].status }
+        column[0].status == 'X' ? winner = player1 : winner = player2
+        return winner
+      end
+    end
+    false
+  end
+
+  def horizontal_winner
+    # grid.each do |column|
+    #   column.any? { |cell| cell.status == column[0].status }
+    # end
+    false
   end
 
 end

@@ -6,8 +6,19 @@ describe Game do
 
   subject(:game) { described_class.new('Max', 'Miles', cell_obj) }
 
-  let(:cell_obj) { double :cell, mark: nil }
-  let(:sample_grid) { [[][][]]}
+  let(:cell_obj) { double :cell, mark: nil, status: nil }
+  let(:x_cell) { double :xcell, status: 'X', owner: 'Max' }
+  let(:o_cell) { double :ocell, status: 'O', owner: 'Miles' }
+
+  let(:h_win_p1) {[
+    [x_cell, cell_obj, cell_obj],
+    [x_cell, cell_obj, cell_obj],
+    [x_cell, cell_obj, cell_obj]]}
+
+  let(:v_win_p2) {[
+    [o_cell, o_cell, o_cell],
+    [cell_obj, cell_obj, cell_obj],
+    [cell_obj, cell_obj, cell_obj]]}
 
   describe '#initialize' do
     context 'Grid' do
@@ -65,15 +76,11 @@ describe Game do
   end
 
   context 'End Game' do
-    before do 
-    end
-
     it 'Game is not over by default' do
-      allow(cell_obj).to receive(:status) { nil }
       expect(game.game_over?).to be false
     end
 
-    it 'Game ends when all the grid cells have been marked' do
+    it 'Ends when all the grid cells have been marked' do
       allow(cell_obj).to receive(:status) { 'Marked cells' }
       col_index = 0
       game.grid.each do |column|
@@ -83,6 +90,20 @@ describe Game do
         col_index += 1
       end
       expect(game.game_over?).to be true
+    end
+  end
+
+  context 'Winning' do
+    context 'Player 1' do
+      xit 'Wins if they mark 3 cells in a row horizontally' do
+        allow(game).to receive(:grid) {h_win_p1}
+        expect(game.winner).to eq 'Max'
+      end
+
+      it 'Wins if they mark 3 cells in a row vertically' do
+        allow(game).to receive(:grid) {v_win_p2}
+        expect(game.winner).to eq 'Miles'
+      end
     end
   end
 
