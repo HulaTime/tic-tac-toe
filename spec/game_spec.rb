@@ -6,8 +6,6 @@ describe Game do
 
   subject(:game) { described_class.new('Max', 'Miles', cell_obj) }
 
-  # let(:player1) { double :player, name: 'Max', change_turn: nil }
-  # let(:player2){ double :player, name: 'Miles', change_turn: nil }
   let(:cell_obj) { double :cell }
 
   describe '#initialize' do
@@ -40,17 +38,23 @@ describe Game do
       allow(cell_obj).to receive(:mark)
     end
 
-    it 'Can mark a grid cell with a cross' do      
-      game.place('x', 1, 2)
+    it 'Player 1 can mark a grid cell with a cross' do      
+      game.place(1, 2)
       expect(game.grid[1][2]).to have_received(:mark).with('x', 'Max')
     end
 
-    it 'Can mark a grid cell with a nought' do
-      game.place('o', 1, 2)
-      expect(game.grid[1][2]).to have_received(:mark).with('o', 'Max')
+    it 'Player 2 can mark a grid cell with a nought' do
+      game.place(1, 2)
+      game.place(2, 2)
+      expect(game.grid[2][2]).to have_received(:mark).with('o', 'Miles')
     end
 
-    it 'Can only mark a grid cell with a nought or cross' do
+    xit 'Switches player turn after each move' do
+      expect(game.player_turn).to eq 'Max'
+      game.place()
+    end
+
+    xit 'Can only mark a grid cell with a nought or cross' do
       expect{ game.place('d', 1, 2) }.to raise_error MARKING_ERROR
       expect{ game.place(6, 1, 2) }.to raise_error MARKING_ERROR
       expect{ game.place(true, 1, 2) }.to raise_error MARKING_ERROR

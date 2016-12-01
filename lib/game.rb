@@ -12,10 +12,20 @@ class Game
     turn == 0 ? @player_turn = player1 : @player_turn = player2
   end
 
-  def place(type, x, y)
-    raise MARKING_ERROR unless type.is_a? String
-    raise MARKING_ERROR if type.upcase != 'X' && type.upcase != 'O'
+  def place(x, y)
+    player_turn == player1 ? type = 'x' : type = 'o'
     grid[x][y].mark(type , player_turn)
+    switch_turn
+  end
+
+  private
+
+  def switch_turn
+    if player_turn == player1
+      @player_turn = player2
+    else player_turn == player2
+      @player_turn = player1
+    end
   end
 
 end
