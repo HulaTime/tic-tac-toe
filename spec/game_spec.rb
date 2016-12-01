@@ -95,7 +95,7 @@ describe Game do
 
   context 'Winning' do
     context 'Player 1' do
-      xit 'Wins if they mark 3 cells in a row horizontally' do
+      it 'Wins if they mark 3 cells in a row horizontally' do
         allow(game).to receive(:grid) {h_win_p1}
         expect(game.winner).to eq 'Max'
       end

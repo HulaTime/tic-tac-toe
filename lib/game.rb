@@ -25,16 +25,18 @@ class Game
   end
 
   def winner
-    grid.each do |column|
-      if column.any? { |cell| cell.status == column[0].status } == true
-        return column[0].owner
-      end
-    end
+    return vertical_winner if vertical_winner != nil
+    return horizontal_winner if horizontal_winner != nil
+    return diagonal_winner if diagonal_winner != nil
   end
 
   private
 
   attr_reader :log
+
+  def same_values?(array)
+    array.uniq.length <= 1
+  end
 
   def switch_turn
     if player_turn == player1
@@ -51,19 +53,12 @@ class Game
 
   def vertical_winner
     grid.each do |column|
-      if column.any? { |cell| cell.status == column[0].status }
-        column[0].status == 'X' ? winner = player1 : winner = player2
-        return winner
-      end
+      return column[0].owner if same_values?(column)
     end
-    false
   end
 
   def horizontal_winner
-    # grid.each do |column|
-    #   column.any? { |cell| cell.status == column[0].status }
-    # end
-    false
+
   end
 
 end
