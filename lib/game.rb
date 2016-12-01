@@ -21,13 +21,7 @@ class Game
   end
 
   def game_over?
-    marked_cells = 0
-    grid.each do |column|
-      column.each do |cell|
-        marked_cells += 1 if cell.status != nil
-      end
-    end
-    marked_cells == 9 ? true : false
+    log.length == 9 ? true : false
   end
 
   private
