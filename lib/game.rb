@@ -25,9 +25,21 @@ class Game
   end
 
   def winner
-    return vertical_winner if vertical_winner != nil
-    return horizontal_winner if horizontal_winner != nil
-    return diagonal_winner if diagonal_winner != nil
+    grid.each do |column|
+      return column[0].owner if same_values?(column)
+    end
+    
+    if (log.include?([0, 0]) && log.include?([1, 0])) && log.include?([2, 0])
+      return grid[0][0].owner
+    end
+
+    if (log.include?([0, 1]) && log.include?([1, 1])) && log.include?([2, 1])
+      return grid[0][1].owner
+    end
+
+    if (log.include?([0, 2]) && log.include?([1, 2])) && log.include?([2, 2])
+      return grid[0][2].owner
+    end
   end
 
   private
@@ -58,7 +70,9 @@ class Game
   end
 
   def horizontal_winner
-
+    if (log.include?([0, 0]) && log.include?([1, 0])) && log.include?([2, 0])
+      return grid[0][0].owner
+    end
   end
 
 end

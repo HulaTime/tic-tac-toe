@@ -6,19 +6,20 @@ describe Game do
 
   subject(:game) { described_class.new('Max', 'Miles', cell_obj) }
 
-  let(:cell_obj) { double :cell, mark: nil, status: nil }
+  let(:cell_obj) { double :cell, mark: nil, status: nil, owner: nil }
   let(:x_cell) { double :xcell, status: 'X', owner: 'Max' }
   let(:o_cell) { double :ocell, status: 'O', owner: 'Miles' }
 
-  let(:h_win_p1) {[
-    [x_cell, cell_obj, cell_obj],
-    [x_cell, cell_obj, cell_obj],
-    [x_cell, cell_obj, cell_obj]]}
+  let(:h_winlog_p1) {[[0,1], [1,1], [2,1]]}
 
   let(:v_win_p2) {[
     [o_cell, o_cell, o_cell],
     [cell_obj, cell_obj, cell_obj],
     [cell_obj, cell_obj, cell_obj]]}
+  let(:h_win_p1) {[
+    [cell_obj, x_cell, cell_obj],
+    [cell_obj, x_cell, cell_obj],
+    [cell_obj, x_cell, cell_obj]]}
 
   describe '#initialize' do
     context 'Grid' do
@@ -96,6 +97,7 @@ describe Game do
   context 'Winning' do
     context 'Player 1' do
       it 'Wins if they mark 3 cells in a row horizontally' do
+        allow(game).to receive(:log) {h_winlog_p1}
         allow(game).to receive(:grid) {h_win_p1}
         expect(game.winner).to eq 'Max'
       end
