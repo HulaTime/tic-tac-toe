@@ -6,7 +6,8 @@ describe Game do
 
   subject(:game) { described_class.new('Max', 'Miles', cell_obj) }
 
-  let(:cell_obj) { double :cell }
+  let(:cell_obj) { double :cell, mark: nil }
+  let(:sample_grid) { [[][][]]}
 
   describe '#initialize' do
     context 'Grid' do
@@ -60,6 +61,28 @@ describe Game do
     it 'Cannot mark the same cell/square twice' do
       game.place(1, 2)
       expect{ game.place(1, 2) }.to raise_error ERROR
+    end
+  end
+
+  context 'End Game' do
+    before do 
+    end
+
+    it 'Game is not over by default' do
+      allow(cell_obj).to receive(:status) { nil }
+      expect(game.game_over?).to be false
+    end
+
+    it 'Game ends when all the grid cells have been marked' do
+      allow(cell_obj).to receive(:status) { 'Marked cells' }
+      col_index = 0
+      game.grid.each do |column|
+        column.each_with_index do |cell, index|
+          game.place(col_index, index)
+        end
+        col_index += 1
+      end
+      expect(game.game_over?).to be true
     end
   end
 
