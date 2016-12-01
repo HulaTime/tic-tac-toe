@@ -2,7 +2,7 @@ require 'game'
 
 describe Game do
 
-  MARKING_ERROR = 'Error: Please mark cells with either x or o'
+  ERROR = 'Error: Cannot mark the same cell twice'
 
   subject(:game) { described_class.new('Max', 'Miles', cell_obj) }
 
@@ -49,15 +49,17 @@ describe Game do
       expect(game.grid[2][2]).to have_received(:mark).with('o', 'Miles')
     end
 
-    xit 'Switches player turn after each move' do
+    it 'Switches player turn after each move' do
       expect(game.player_turn).to eq 'Max'
-      game.place()
+      game.place(1, 2)
+      expect(game.player_turn).to eq 'Miles'
+      game.place(2, 2)
+      expect(game.player_turn).to eq 'Max'
     end
 
-    xit 'Can only mark a grid cell with a nought or cross' do
-      expect{ game.place('d', 1, 2) }.to raise_error MARKING_ERROR
-      expect{ game.place(6, 1, 2) }.to raise_error MARKING_ERROR
-      expect{ game.place(true, 1, 2) }.to raise_error MARKING_ERROR
+    it 'Cannot mark the same cell/square twice' do
+      game.place(1, 2)
+      expect{ game.place(1, 2) }.to raise_error ERROR
     end
   end
 
